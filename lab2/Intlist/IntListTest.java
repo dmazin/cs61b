@@ -27,6 +27,27 @@ public class IntListTest {
         assertEquals(IntList.of(1, 4, 9), L);
     }
 
+    @Test
+    public void testSize() {
+        IntList L = IntList.of(1, 2, 3);
+        int size = L.size();
+        assertEquals(3, size);
+    }
+
+    @Test
+    public void testSizeIterative() {
+        IntList L = IntList.of(1, 2, 3);
+        int size = L.sizeIterative();
+        assertEquals(3, size);
+    }
+
+    @Test
+    public void getTest() {
+        IntList L = IntList.of(1, 2, 3);
+        int gotten = L.get(1);
+        assertEquals(2, gotten);
+    }
+
     /**
      * Do not use the new keyword in your tests. You can create
      * lists using the handy IntList.of method.

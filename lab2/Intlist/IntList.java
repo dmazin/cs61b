@@ -33,6 +33,34 @@ public class IntList {
         this(0, null);
     }
 
+    public int size() {
+        if (rest == null) {
+            return 1;
+        } else {
+            return 1 + rest.size();
+        }
+    }
+
+    public int sizeIterative() {
+        int accumulator = 1;
+
+        IntList list = rest;
+        while (list != null) {
+            accumulator = accumulator + 1;
+            list = list.rest;
+        }
+
+        return accumulator;
+    }
+
+    public int get(int index) {
+        if (index == 0) {
+            return first;
+        }
+
+        return rest.get(index - 1);
+    }
+
     /**
      * Returns a list equal to L with all elements squared. Destructive.
      */
