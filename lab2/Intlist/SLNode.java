@@ -7,7 +7,7 @@ import java.util.Formatter;
  * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
  *         [Do not modify this file.]
  */
-public class IntList {
+public class SLNode {
     /**
      * First element of list.
      */
@@ -15,21 +15,27 @@ public class IntList {
     /**
      * Remaining elements of list.
      */
-    public IntList rest;
+    public SLNode rest;
 
     /**
      * A List with first FIRST0 and rest REST0.
      */
-    public IntList(int first0, IntList rest0) {
+    public SLNode(int first0, SLNode rest0) {
         first = first0;
         rest = rest0;
+    }
+
+    public void addFirst(int intToAdd) {
+        int oldFirst = first;
+        first = intToAdd;
+        rest = new SLNode(oldFirst, rest);
     }
 
     /**
      * A List with null rest, and first = 0.
      */
-    public IntList() {
-    /* NOTE: public IntList () { }  would also work. */
+    public SLNode() {
+    /* NOTE: public SLNode () { }  would also work. */
         this(0, null);
     }
 
@@ -44,7 +50,7 @@ public class IntList {
     public int sizeIterative() {
         int accumulator = 1;
 
-        IntList list = rest;
+        SLNode list = rest;
         while (list != null) {
             accumulator = accumulator + 1;
             list = list.rest;
@@ -64,7 +70,7 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Destructive.
      */
-    public static void dSquareList(IntList L) {
+    public static void dSquareList(SLNode L) {
 
         while (L != null) {
             L.first = L.first * L.first;
@@ -75,15 +81,15 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
      */
-    public static IntList squareListIterative(IntList L) {
+    public static SLNode squareListIterative(SLNode L) {
         if (L == null) {
             return null;
         }
-        IntList res = new IntList(L.first * L.first, null);
-        IntList ptr = res;
+        SLNode res = new SLNode(L.first * L.first, null);
+        SLNode ptr = res;
         L = L.rest;
         while (L != null) {
-            ptr.rest = new IntList(L.first * L.first, null);
+            ptr.rest = new SLNode(L.first * L.first, null);
             L = L.rest;
             ptr = ptr.rest;
         }
@@ -93,11 +99,11 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
      */
-    public static IntList squareListRecursive(IntList L) {
+    public static SLNode squareListRecursive(SLNode L) {
         if (L == null) {
             return null;
         }
-        return new IntList(L.first * L.first, squareListRecursive(L.rest));
+        return new SLNode(L.first * L.first, squareListRecursive(L.rest));
     }
 
     /** DO NOT MODIFY ANYTHING ABOVE THIS LINE! */
@@ -108,7 +114,7 @@ public class IntList {
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
 
-    public static IntList dcatenate(IntList A, IntList B) {
+    public static SLNode dcatenate(SLNode A, SLNode B) {
         //TODO:  fill in method
         return null;
     }
@@ -117,7 +123,7 @@ public class IntList {
      * Returns a list consisting of the elements of A followed by the
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
-    public static IntList catenate(IntList A, IntList B) {
+    public static SLNode catenate(SLNode A, SLNode B) {
         //TODO:  fill in method
         return null;
     }
@@ -150,36 +156,36 @@ public class IntList {
     }
 
     /**
-     * Returns a new IntList containing the ints in ARGS. You are not
+     * Returns a new SLNode containing the ints in ARGS. You are not
      * expected to read or understand this method.
      */
-    public static IntList of(Integer... args) {
-        IntList result, p;
+    public static SLNode of(Integer... args) {
+        SLNode result, p;
 
         if (args.length > 0) {
-            result = new IntList(args[0], null);
+            result = new SLNode(args[0], null);
         } else {
             return null;
         }
 
         int k;
         for (k = 1, p = result; k < args.length; k += 1, p = p.rest) {
-            p.rest = new IntList(args[k], null);
+            p.rest = new SLNode(args[k], null);
         }
         return result;
     }
 
     /**
-     * Returns true iff X is an IntList containing the same sequence of ints
+     * Returns true iff X is an SLNode containing the same sequence of ints
      * as THIS. Cannot handle IntLists with cycles. You are not expected to
      * read or understand this method.
      */
     public boolean equals(Object x) {
-        if (!(x instanceof IntList)) {
+        if (!(x instanceof SLNode)) {
             return false;
         }
-        IntList L = (IntList) x;
-        IntList p;
+        SLNode L = (SLNode) x;
+        SLNode p;
 
         for (p = this; p != null && L != null; p = p.rest, L = L.rest) {
             if (p.first != L.first) {
@@ -193,20 +199,20 @@ public class IntList {
     }
 
     /**
-     * If a cycle exists in the IntList, this method
+     * If a cycle exists in the SLNode, this method
      * returns an integer equal to the item number of the location where the
      * cycle is detected.
      * <p>
      * If there is no cycle, the number 0 is returned instead. This is a
      * utility method for lab2. You are not expected to read, understand, or
      * even use this method. The point of this method is so that if you convert
-     * an IntList into a String and that IntList has a loop, your computer
+     * an SLNode into a String and that SLNode has a loop, your computer
      * doesn't get stuck in an infinite loop.
      */
 
-    private int detectCycles(IntList A) {
-        IntList tortoise = A;
-        IntList hare = A;
+    private int detectCycles(SLNode A) {
+        SLNode tortoise = A;
+        SLNode hare = A;
 
         if (A == null) {
             return 0;
@@ -236,7 +242,7 @@ public class IntList {
     }
 
     @Override
-    /** Outputs the IntList as a String. You are not expected to read
+    /** Outputs the SLNode as a String. You are not expected to read
      * or understand this method. */
     public String toString() {
         Formatter out = new Formatter();
@@ -245,7 +251,7 @@ public class IntList {
         int cycleLocation = detectCycles(this);
         int cnt = 0;
 
-        for (IntList p = this; p != null; p = p.rest) {
+        for (SLNode p = this; p != null; p = p.rest) {
             out.format("%s%d", sep, p.first);
             sep = ", ";
 
