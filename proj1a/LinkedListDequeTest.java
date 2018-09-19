@@ -35,14 +35,12 @@ public class LinkedListDequeTest {
 	  * && is the "and" operation. */
 	public static void addIsEmptySizeTest() {
 		System.out.println("Running add/isEmpty/Size test.");
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-		/*
 		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
 		boolean passed = checkEmpty(true, lld1.isEmpty());
 
 		lld1.addFirst("front");
-		
+
 		// The && operator is the same as "and" in Python.
 		// It's a binary operator that returns true if both arguments true, and false otherwise.
 		passed = checkSize(1, lld1.size()) && passed;
@@ -58,7 +56,6 @@ public class LinkedListDequeTest {
 		lld1.printDeque();
 
 		printTestStatus(passed);
-		*/
 	}
 
 	/** Adds an item, then removes an item, and ensures that dll is empty afterwards. */
@@ -66,8 +63,6 @@ public class LinkedListDequeTest {
 
 		System.out.println("Running add/remove test.");
 
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-		/*
 		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 		// should be empty 
 		boolean passed = checkEmpty(true, lld1.isEmpty());
@@ -81,12 +76,34 @@ public class LinkedListDequeTest {
 		passed = checkEmpty(true, lld1.isEmpty()) && passed;
 
 		printTestStatus(passed);
-		*/
+	}
+
+	public static void upDownUpTest() {
+		LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+
+		boolean passed = true;
+
+		lld1.addFirst(10);
+		passed = lld1.get(0) == 10 && passed;
+		lld1.addFirst(20);
+//		passed = (lld1.get(lld1.size()-1)) == 20) && passed;
+		lld1.addLast(30);
+//		passed = (lld1.get(lld1.size()-1)) == 30) && passed;
+		int f = lld1.removeFirst();
+		passed = f == 20 && passed;
+		f = lld1.removeLast();
+		passed = f == 30 && passed;
+		f = lld1.removeFirst();
+		passed = f == 10 && passed;
+
+		passed = checkEmpty(true, lld1.isEmpty()) && passed;
+		System.out.println(passed);
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
 		addRemoveTest();
+		upDownUpTest();
 	}
 } 
