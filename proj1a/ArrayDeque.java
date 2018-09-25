@@ -62,11 +62,11 @@ public class ArrayDeque<T> {
         return items[index];
     }
 
-    public T getFirst() {
+    private T getFirst() {
         return items[getFirstIndex()];
     }
 
-    public T getLast() {
+    private T getLast() {
         return items[getLastIndex()];
     }
 
