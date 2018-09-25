@@ -17,6 +17,10 @@ public class ArrayDeque<T> {
         return size;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     private int getFirstIndex() {
         return (nextFirst + 1) % items.length;
     }
@@ -67,7 +71,7 @@ public class ArrayDeque<T> {
     }
 
     private void resizeIfNecessary() {
-        if (size == items.length || (items.length > 16 && (double)size / items.length < MINUTILIZATION)) {
+        if (size == items.length || (items.length > 16 && (double) size / items.length < MINUTILIZATION)) {
             printDeque();
             resize();
             printDeque();
