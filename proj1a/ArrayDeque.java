@@ -59,7 +59,8 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        return items[getFirstIndex() + index % items.length];
+        int candidateIndex = (getFirstIndex() + index) % items.length;
+        return items[candidateIndex];
     }
 
     public T getFirst() {

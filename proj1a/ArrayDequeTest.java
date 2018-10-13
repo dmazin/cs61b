@@ -119,11 +119,16 @@ public class ArrayDequeTest {
     @Test
     public void randomizedTestIncludingGet() {
         ArrayDeque<Integer> L = new ArrayDeque<>();
-        L.addFirst(0);
+        L.addLast(0);
         L.addLast(1);
-        int itemAtZero = L.get(0);
-
-        assertEquals(0, itemAtZero);
+        L.get(1);
+        L.addLast(3);
+        L.addFirst(4);
+        L.removeLast();
+        L.addFirst(6);
+        L.removeFirst();
+        L.addFirst(8);
+        L.get(3);
     }
 
     @Test
