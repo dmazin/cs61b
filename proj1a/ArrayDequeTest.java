@@ -17,6 +17,18 @@ public class ArrayDequeTest {
         assertEquals(2, L.size());
     }
 
+    @Test
+    public void testRemoveThenGetLast() {
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+        L.addFirst(0);
+        L.addFirst(1);
+        L.addFirst(2);
+        L.addFirst(3);
+        L.removeLast();
+        int last = L.getLast();
+
+        assertEquals(1, last);
+    }
 
     @Test
     public void testAddAndGetLast() {
@@ -85,6 +97,41 @@ public class ArrayDequeTest {
 
     public void testResizeDownNoAddLast() {
 
+    }
+
+    @Test
+    public void fillUpEmptyFillUpAgain() {
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+        int N = 8;
+        for (int i = 0; i < N; i += 1) {
+            L.addFirst(i);
+        }
+        for (int i = 0; i < N; i += 1) {
+            L.removeFirst();
+        }
+        for (int i = 0; i < N; i += 1) {
+            L.addFirst(i);
+        }
+
+        assertEquals(L.size(), 8);
+    }
+
+    @Test
+    public void randomizedTestIncludingGet() {
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+        L.addFirst(0);
+        L.addLast(1);
+        int itemAtZero = L.get(0);
+
+        assertEquals(0, itemAtZero);
+    }
+
+    @Test
+    public void removeFromEmptyDequeTest() {
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+        L.removeLast();
+
+        assertEquals(0, L.size());
     }
 
     /** Tests insertion of a large number of items.*/

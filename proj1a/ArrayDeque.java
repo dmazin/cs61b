@@ -26,7 +26,7 @@ public class ArrayDeque<T> {
     }
 
     private int getLastIndex() {
-        return (nextLast - 1) % items.length;
+        return (nextLast - 1 + items.length) % items.length;
     }
 
     private void resize() {
@@ -46,7 +46,7 @@ public class ArrayDeque<T> {
         resizeIfNecessary();
 
         items[nextFirst] = first0;
-        nextFirst = (nextFirst - 1) % items.length;
+        nextFirst = (nextFirst - 1 + items.length) % items.length;
         size += 1;
     }
 
@@ -59,14 +59,16 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        return items[index];
+        return items[getFirstIndex() + index % items.length];
     }
 
-    private T getFirst() {
+    public T getFirst() {
         return items[getFirstIndex()];
     }
+//    private T getFirst() {
 
-    private T getLast() {
+//    private T getLast() {
+    public T getLast() {
         return items[getLastIndex()];
     }
 
@@ -79,7 +81,11 @@ public class ArrayDeque<T> {
     public T removeLast() {
         T last = getLast();
 
-        nextLast = (nextLast - 1) % items.length;
+        if (size == 0) {
+            return last;
+        }
+
+        nextLast = (nextLast - 1 + items.length) % items.length;
         size -= 1;
 
         resizeIfNecessary();
@@ -89,6 +95,10 @@ public class ArrayDeque<T> {
 
     public T removeFirst() {
         T first = getFirst();
+
+        if (size == 0) {
+            return first;
+        }
 
         nextFirst = (nextFirst + 1) % items.length;
         size -= 1;
